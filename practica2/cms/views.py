@@ -41,11 +41,6 @@ def content(request, key):
 	if request.user.is_authenticated():
 		try:
 			resource = Pages.objects.get(name=key)
-			template = get_template("Invention/index.html")
-			c = Context({'content': key})
-			renderizado = template.render(c)
-			return HttpResponse(renderizado)
-			
 			if request.method == 'PUT':
 				updated = Pages(id=resource.id, name=resource.name, page=request.body) 
 				updated.save()

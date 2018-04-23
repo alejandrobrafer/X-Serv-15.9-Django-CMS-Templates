@@ -16,16 +16,18 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from cms import views
 from django.contrib.auth.views import logout, login
-from django.views.static import *
+from django.views.static import serve
 from myproject import settings
 
+
 urlpatterns = [
-	url(r'^annotated/(.+)', views.annotate),
-	url(r'^annotated/(?P<path>.*)$', serve, {'document_root': settings.STATIC_URL}),
 	url(r'^logout', logout),
-	url(r'^^login', login),
+	url(r'^login', login),
 	url(r'^accounts/profile/', views.redirection),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^annotated/(.+)', views.annotated),
     url(r'(.+)', views.content),
     url(r'^$', views.principal),
+    url(r'^(?P<path>.*)$', serve, {'document_root': settings.STATIC_URL}),
+    
 ]
